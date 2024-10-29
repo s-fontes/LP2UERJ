@@ -1,0 +1,10 @@
+services:
+  java:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
