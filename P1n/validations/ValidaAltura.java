@@ -1,10 +1,10 @@
 package validations;
 
-public abstract class ValidaAltura {
-    public static String PATTERN = "^[0-9](\\.[0-9]{1,2})?$";
+public final class ValidaAltura {
 
     public static float validaAltura(String altura) throws ValidationException {
-        if (altura.matches(PATTERN)) {
+        String pattern = "^[0-9](\\.[0-9]{1,2})?$";
+        if (altura.matches(pattern)) {
             return Float.parseFloat(altura);
         }
         throw new ValidationException("Altura inválida. Insira uma altura possível.");

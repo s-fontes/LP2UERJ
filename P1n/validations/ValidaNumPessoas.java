@@ -1,17 +1,13 @@
 package validations;
 
-public abstract class ValidaNumPessoas {
-    static final String regex = "^[0-9]*$";
+public final class ValidaNumPessoas {
 
     public static int validaNumPessoas(String numPessoas) throws ValidationException {
-        if (numPessoas.matches(regex)) {
+        String pattern = "^[0-9]*$";
+        if (numPessoas.matches(pattern)) {
             return Integer.parseInt(numPessoas);
         } else {
             throw new ValidationException("Número de pessoas inválido");
         }
-    }
-
-    public static String imprimeNumPessoas(int numPessoas) {
-        return String.valueOf(numPessoas);
     }
 }

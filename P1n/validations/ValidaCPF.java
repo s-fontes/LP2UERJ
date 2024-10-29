@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class ValidaCPF {
-
-    static final String PATTERN = "^[0-9]{11}$|^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$|^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}/[0-9]{2}$";
+public final class ValidaCPF {
 
     private static boolean isFirstDigitValid(Integer[] digits) {
         int sum = 0;
@@ -36,7 +34,8 @@ public abstract class ValidaCPF {
         for (int i = 0; i < 11; i++) {
             digits[i] = Integer.parseInt(cpfDigits.substring(i, i + 1));
         }
-        return cpf.matches(PATTERN) && isFirstDigitValid(digits) && isSecondDigitValid(digits) && !isAllDigitsEqual(digits);
+        String pattern = "^[0-9]{11}$|^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$|^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}/[0-9]{2}$";
+        return cpf.matches(pattern) && isFirstDigitValid(digits) && isSecondDigitValid(digits) && !isAllDigitsEqual(digits);
     }
 
     public static Long toLong(String cpf) {

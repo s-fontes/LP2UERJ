@@ -1,10 +1,10 @@
 package validations;
 
-public abstract class ValidaPeso {
-    public static String PATTERN = "^[0-9]{1,3}(\\.[0-9])?$";
+public final class ValidaPeso {
 
     public static float validaPeso(String peso) throws ValidationException {
-        if (peso.matches(PATTERN)) {
+        String pattern = "^[0-9]{1,3}(\\.[0-9])?$";
+        if (peso.matches(pattern)) {
             return Float.parseFloat(peso);
         }
         throw new ValidationException("Peso inválido. Insira um peso possível.");

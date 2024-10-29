@@ -1,6 +1,6 @@
 package pessoa;
 
-public class Mulher extends Pessoa {
+public final class Mulher extends Pessoa {
 
     public Mulher(String nome, String sobreNome, String dia, String mes, String ano) {
         super(nome, sobreNome, dia, mes, ano);

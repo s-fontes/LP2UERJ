@@ -8,19 +8,10 @@ import validations.ValidationException;
 public class P1nX {
     private static int numHomens = 0;
     private static int numMulheres = 0;
+    private static int initNumPessoas = 0;
 
     public static void main(String[] args) {
-        try {
-            Pessoa p1 = Generator.generate(args);
-            if (p1 instanceof Homem) {
-                numHomens++;
-            } else if (p1 instanceof Mulher) {
-                numMulheres++;
-            }
-            System.out.println(p1);
-        } catch (ValidationException e) {
-            System.out.println(e.getMessage());
-        }
+        generatePessoaByArgs(args);
         try {
             int np = Generator.requestNumPessoas();
             Pessoa[] pessoas = new Pessoa[np];
@@ -32,21 +23,50 @@ public class P1nX {
                     break;
                 }
             }
-            for (int i = 0; i < Pessoa.getNumPessoas() - 1; i++) {
-                if (pessoas[i] instanceof Homem) {
-                    numHomens++;
-                } else if (pessoas[i] instanceof Mulher) {
-                    numMulheres++;
-                }
-                System.out.println(pessoas[i]);
-            }
+            countGender(pessoas);
+            printPessoas(pessoas);
         } catch (InputInterruptException e) {
             System.out.println(e.getMessage());
         }
-        Generator.printNumPessoas();
-        System.out.println("Número de homens: " + numHomens);
-        System.out.println("Número de mulheres: " + numMulheres);
+        printStats();
         System.out.println("Programa encerrado.");
         System.exit(0);
+    }
+
+    private static void generatePessoaByArgs(String[] args) {
+        try {
+            Pessoa p1 = Generator.generate(args);
+            initNumPessoas++;
+            countGender(p1);
+            System.out.println(p1);
+        } catch (ValidationException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void countGender(Pessoa p) {
+        if (p instanceof Homem) {
+            numHomens++;
+        } else if (p instanceof Mulher) {
+            numMulheres++;
+        }
+    }
+
+    private static void countGender(Pessoa[] pessoas) {
+        for (int i = 0; i < Pessoa.getNumPessoas() - initNumPessoas; i++) {
+            countGender(pessoas[i]);
+        }
+    }
+
+    private static void printPessoas(Pessoa[] pessoas) {
+        for (int i = 0; i < Pessoa.getNumPessoas() - initNumPessoas; i++) {
+            System.out.println(pessoas[i]);
+        }
+    }
+
+    private static void printStats() {
+        System.out.println("Número de pessoas: " + Pessoa.getNumPessoas());
+        System.out.println("Número de homens: " + numHomens);
+        System.out.println("Número de mulheres: " + numMulheres);
     }
 }

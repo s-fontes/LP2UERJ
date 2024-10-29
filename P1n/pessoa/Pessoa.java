@@ -87,9 +87,9 @@ public abstract class Pessoa {
     public String toString() {
         return "{nome: '" + ValidaNome.imprimeNome(getNome()) + "'" +
                 ", sobrenome: '" + ValidaSobrenome.imprimeSobrenome(getSobreNome()) + "'" +
-                ", data de nascimento: '" + ValidaData.imprimeData(getDataNasc()) + "'" +
-                ", CPF: '" + ValidaCPF.imprimeCPF(getNumCPF()) + "'" +
-                ", peso: '" + ValidaPeso.imprimePeso(getPeso()) + " Kg'" +
-                ", altura: '" + ValidaAltura.imprimeAltura(getAltura()) + " m'" + '}';
+                ", data de nascimento: " + ValidaData.imprimeData(getDataNasc()) +
+                ", CPF: " + ValidaCPF.imprimeCPF(getNumCPF()) +
+                ", peso: " + ValidaPeso.imprimePeso(getPeso()) + " Kg" +
+                ", altura: " + ValidaAltura.imprimeAltura(getAltura()) + " m" + '}';
     }
 }

@@ -6,7 +6,7 @@ import validations.*;
 
 import java.util.GregorianCalendar;
 
-public class Generator {
+public final class Generator {
     public static Pessoa generate(String sexo, String nome, String sobreNome, String dia, String mes, String ano, String numCPF, String peso, String altura) throws ValidationException {
         if (sexo.equals("m")) {
             return new Homem(nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
@@ -61,10 +61,6 @@ public class Generator {
             System.out.println(e.getMessage());
             return requestNumPessoas();
         }
-    }
-
-    public static void printNumPessoas() {
-        System.out.println("Foram criadas " + ValidaNumPessoas.imprimeNumPessoas(Pessoa.getNumPessoas()) + " pessoas.");
     }
 
     public static String requestSexo() {

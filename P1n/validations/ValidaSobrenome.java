@@ -1,14 +1,13 @@
 package validations;
 
-public abstract class ValidaSobrenome {
-
-    static final String PATTERN = "[0-9]+";
+public final class ValidaSobrenome {
 
     public static String validaSobrenome(String sobrenome) throws ValidationException {
-        if (sobrenome.replaceAll(PATTERN, "").length() != sobrenome.length()) {
+        String pattern = "[0-9]+";
+        if (sobrenome.replaceAll(pattern, "").length() != sobrenome.length()) {
             throw new ValidationException("Sobrenome inválido. O sobrenome não pode conter números.");
         }
-        return sobrenome;
+        return sobrenome.strip();
     }
 
     public static String imprimeSobrenome(String sobrenome) {

@@ -5,7 +5,7 @@ import utils.MonthEnum;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-public abstract class ValidaData {
+public final class ValidaData {
 
     public static int validaDia(String strDia) throws ValidationException {
         try {
