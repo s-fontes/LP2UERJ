@@ -21,28 +21,28 @@ public final class Generator {
         }
     }
 
-public static Pessoa generate(String[] args) throws ValidationException {
-    if (args.length != 9 && args.length != 6) {
-        throw new ValidationException("Informações faltando. Por favor, preencha todos os dados.");
-    }
+    public static Pessoa generate(String[] args) throws ValidationException {
+        if (args.length != 9 && args.length != 6) {
+            throw new ValidationException("Informações faltando. Por favor, preencha todos os dados.");
+        }
 
-    char genero = ValidaGenero.validaGenero(args[0]);
-    String nome = ValidaNome.validaNome(args[1]);
-    String sobreNome = ValidaSobrenome.validaSobrenome(args[2]);
-    int dia = ValidaData.validaDia(args[3]);
-    int mes = ValidaData.validaMes(args[4]);
-    int ano = ValidaData.validaAno(args[5]);
-    ValidaData.validaData(dia, mes, ano);
+        char genero = ValidaGenero.validaGenero(args[0]);
+        String nome = ValidaNome.validaNome(args[1]);
+        String sobreNome = ValidaSobrenome.validaSobrenome(args[2]);
+        int dia = ValidaData.validaDia(args[3]);
+        int mes = ValidaData.validaMes(args[4]);
+        int ano = ValidaData.validaAno(args[5]);
+        ValidaData.validaData(dia, mes, ano);
 
-    if (args.length == 9) {
-        long numCPF = ValidaCPF.validaCPF(args[6]);
-        float peso = ValidaPeso.validaPeso(args[7]);
-        float altura = ValidaAltura.validaAltura(args[8]);
-        return generate(genero, nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
-    } else {
-        return generate(genero, nome, sobreNome, dia, mes, ano);
+        if (args.length == 9) {
+            long numCPF = ValidaCPF.validaCPF(args[6]);
+            float peso = ValidaPeso.validaPeso(args[7]);
+            float altura = ValidaAltura.validaAltura(args[8]);
+            return generate(genero, nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
+        } else {
+            return generate(genero, nome, sobreNome, dia, mes, ano);
+        }
     }
-}
 
     public static Pessoa generate() throws InputInterruptException {
         String nome = requestName();
