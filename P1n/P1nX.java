@@ -29,7 +29,7 @@ public class P1nX {
             System.out.println(e.getMessage());
         }
         printStats();
-        System.out.println("Programa encerrado.");
+        System.out.println("\nPrograma encerrado.");
         System.exit(0);
     }
 
@@ -59,8 +59,9 @@ public class P1nX {
     }
 
     private static void printPessoas(Pessoa[] pessoas) {
+        System.out.println("\n-----------------------------------------------------------\nInformações inseridas:");
         for (int i = 0; i < Pessoa.getNumPessoas() - initNumPessoas; i++) {
-            System.out.println(pessoas[i]);
+            System.out.println(pessoas[i] + "\n");
         }
     }
 

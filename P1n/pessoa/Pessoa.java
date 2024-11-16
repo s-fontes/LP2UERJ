@@ -1,8 +1,10 @@
 package pessoa;
 
-import validations.*;
+import validations.ValidaNome;
+import validations.ValidaSobrenome;
 
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 public abstract class Pessoa {
     private static int numPessoas = 0;
@@ -13,14 +15,14 @@ public abstract class Pessoa {
     private float peso;
     private float altura;
 
-    protected Pessoa(String nome, String sobreNome, String dia, String mes, String ano) {
+    protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano) {
         this.setNome(nome);
         this.setSobreNome(sobreNome);
         this.setDataNasc(dia, mes, ano);
         numPessoas++;
     }
 
-    protected Pessoa(String nome, String sobreNome, String dia, String mes, String ano, String numCPF, String peso, String altura) {
+    protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano, long numCPF, float peso, float altura) {
         this.setNome(nome);
         this.setSobreNome(sobreNome);
         this.setDataNasc(dia, mes, ano);
@@ -39,7 +41,7 @@ public abstract class Pessoa {
     }
 
     protected void setNome(String nome) {
-        this.nome = ValidaNome.validaNome(nome);
+        this.nome = nome;
     }
 
     protected String getSobreNome() {
@@ -47,49 +49,60 @@ public abstract class Pessoa {
     }
 
     protected void setSobreNome(String sobreNome) {
-        this.sobreNome = ValidaSobrenome.validaSobrenome(sobreNome);
+        this.sobreNome = sobreNome;
     }
 
     protected GregorianCalendar getDataNasc() {
         return dataNasc;
     }
 
-    protected void setDataNasc(String dia, String mes, String ano) {
-        this.dataNasc = ValidaData.validaData(dia, mes, ano);
+    protected void setDataNasc(int dia, int mes, int ano) {
+        GregorianCalendar dataNasc = new GregorianCalendar(ano, mes, dia);
+        dataNasc.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+        this.dataNasc = dataNasc;
     }
 
+    protected int getIdade() {
+        GregorianCalendar hoje = new GregorianCalendar();
+        hoje.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+        GregorianCalendar dataNasc = getDataNasc();
+        int idade = hoje.get(GregorianCalendar.YEAR) - dataNasc.get(GregorianCalendar.YEAR);
+        if (hoje.get(GregorianCalendar.MONTH) < dataNasc.get(GregorianCalendar.MONTH) ||
+                (hoje.get(GregorianCalendar.MONTH) == dataNasc.get(GregorianCalendar.MONTH) &&
+                        hoje.get(GregorianCalendar.DAY_OF_MONTH) < dataNasc.get(GregorianCalendar.DAY_OF_MONTH))) {
+            idade--;
+        }
+        return idade;
+    }
 
     protected long getNumCPF() {
         return numCPF;
     }
 
-    protected void setNumCPF(String numCPF) {
-        this.numCPF = ValidaCPF.validaCPF(numCPF);
+    protected void setNumCPF(long numCPF) {
+        this.numCPF = numCPF;
     }
 
     protected float getPeso() {
         return peso;
     }
 
-    protected void setPeso(String peso) {
-        this.peso = ValidaPeso.validaPeso(peso);
+    protected void setPeso(float peso) {
+        this.peso = peso;
     }
 
     protected float getAltura() {
         return altura;
     }
 
-    protected void setAltura(String altura) {
-        this.altura = ValidaAltura.validaAltura(altura);
+    protected void setAltura(float altura) {
+        this.altura = altura;
     }
 
     @Override
     public String toString() {
-        return "{nome: '" + ValidaNome.imprimeNome(getNome()) + "'" +
-                ", sobrenome: '" + ValidaSobrenome.imprimeSobrenome(getSobreNome()) + "'" +
-                ", data de nascimento: " + ValidaData.imprimeData(getDataNasc()) +
-                ", CPF: " + ValidaCPF.imprimeCPF(getNumCPF()) +
-                ", peso: " + ValidaPeso.imprimePeso(getPeso()) + " Kg" +
-                ", altura: " + ValidaAltura.imprimeAltura(getAltura()) + " m" + '}';
+        return "Nome: " + ValidaNome.imprimeNome(getNome()) + "\n" +
+                "Sobrenome: " + ValidaSobrenome.imprimeSobrenome(getSobreNome()) + "\n" +
+                "Idade: " + getIdade() + "\n";
     }
 }

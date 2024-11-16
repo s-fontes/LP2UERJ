@@ -3,11 +3,15 @@ package validations;
 public final class ValidaPeso {
 
     public static float validaPeso(String peso) throws ValidationException {
-        String pattern = "^[0-9]{1,3}(\\.[0-9])?$";
-        if (peso.matches(pattern)) {
-            return Float.parseFloat(peso);
+        try {
+            float p = Float.parseFloat(peso);
+            if (p < 0.3 || p > 800.0) {
+                throw new ValidationException("Peso inválido. Insira um peso possível.");
+            }
+            return p;
+        } catch (NumberFormatException e) {
+            throw new ValidationException("Peso inválido. Insira um peso possível.");
         }
-        throw new ValidationException("Peso inválido. Insira um peso possível.");
     }
 
     public static String imprimePeso(float peso) {

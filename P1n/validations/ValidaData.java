@@ -25,10 +25,10 @@ public final class ValidaData {
             if (mes < 1 || mes > 12) {
                 throw new ValidationException("Mês inválido. Insira um mês existente.");
             }
-            return mes;
+            return mes - 1;
         } catch (NumberFormatException e) {
             try {
-                return MonthEnum.valueOf(strMes).ordinal() + 1;
+                return MonthEnum.valueOf(strMes).ordinal();
             } catch (IllegalArgumentException ex) {
                 throw new ValidationException("Mês inválido. Insira um mês existente.");
             }
@@ -38,9 +38,9 @@ public final class ValidaData {
     public static int validaAno(String strAno) throws ValidationException {
         try {
             int ano = Integer.parseInt(strAno);
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
-            int anoAtual = calendar.get(GregorianCalendar.YEAR);
+            GregorianCalendar hoje = new GregorianCalendar();
+            hoje.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+            int anoAtual = hoje.get(GregorianCalendar.YEAR);
             if (ano < anoAtual - 120 || ano > anoAtual) {
                 throw new ValidationException("Ano inválido. Insira um ano entre " + (anoAtual - 120) + " e " + anoAtual + ".");
             }
@@ -50,20 +50,10 @@ public final class ValidaData {
         }
     }
 
-    public static GregorianCalendar validaData(String dia, String mes, String ano) throws ValidationException {
-        try {
-            int mesInt = validaMes(mes) - 1;
-            GregorianCalendar data = new GregorianCalendar(validaAno(ano), mesInt, validaDia(dia));
-            if (data.get(GregorianCalendar.MONTH) != mesInt) {
-                throw new ValidationException("Data inválida. Insira uma data existente.");
-            }
-            return data;
-        } catch (IllegalArgumentException e) {
+    public static void validaData(int dia, int mes, int ano) throws ValidationException {
+        GregorianCalendar data = new GregorianCalendar(ano, mes, dia);
+        if (data.get(GregorianCalendar.MONTH) != mes) {
             throw new ValidationException("Data inválida. Insira uma data existente.");
         }
-    }
-
-    public static String imprimeData(GregorianCalendar data) {
-        return String.format("%02d/%02d/%04d", data.get(GregorianCalendar.DAY_OF_MONTH), data.get(GregorianCalendar.MONTH) + 1, data.get(GregorianCalendar.YEAR));
     }
 }

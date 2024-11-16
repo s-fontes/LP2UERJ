@@ -1,17 +1,25 @@
 package pessoa;
 
+import validations.ValidaCPF;
+import validations.ValidaPeso;
+import validations.ValidaAltura;
+
 public final class Homem extends Pessoa {
 
-    public Homem(String nome, String sobreNome, String dia, String mes, String ano) {
+    public Homem(String nome, String sobreNome, int dia, int mes, int ano) {
         super(nome, sobreNome, dia, mes, ano);
     }
 
-    public Homem(String nome, String sobreNome, String dia, String mes, String ano, String numCPF, String peso, String altura) {
+    public Homem(String nome, String sobreNome, int dia, int mes, int ano, long numCPF, float peso, float altura) {
         super(nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
     }
 
     @Override
     public String toString() {
-        return "Homem " + super.toString();
+        return super.toString() +
+                "Gênero: Masculino\n" +
+                "CPF: " + ValidaCPF.imprimeCPF(super.getNumCPF()) + "\n" +
+                "Peso: " + ValidaPeso.imprimePeso(super.getPeso()) + "\n" +
+                "Altura: " + ValidaAltura.imprimeAltura(super.getAltura());
     }
 }

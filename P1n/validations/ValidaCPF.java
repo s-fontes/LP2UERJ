@@ -1,6 +1,5 @@
 package validations;
 
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,9 +27,12 @@ public final class ValidaCPF {
         return digitsSet.size() == 1;
     }
 
-    public static boolean isCPFValid(String cpf) throws ValidationException {
+    public static boolean isCPFValid(String cpf) {
         String cpfDigits = cpf.replaceAll("[^0-9]", "");
         Integer[] digits = new Integer[11];
+        if (cpfDigits.length() != 11) {
+            return false;
+        }
         for (int i = 0; i < 11; i++) {
             digits[i] = Integer.parseInt(cpfDigits.substring(i, i + 1));
         }
@@ -52,9 +54,5 @@ public final class ValidaCPF {
 
     public static String imprimeCPF(long cpf) {
         return String.format("%011d", cpf).replaceAll("([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})", "$1.$2.$3-$4");
-    }
-
-    public static String imprimeCPF(String cpf) {
-        return cpf.replaceAll("([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})", "$1.$2.$3-$4");
     }
 }

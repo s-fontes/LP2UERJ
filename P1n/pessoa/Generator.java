@@ -4,153 +4,158 @@ import utils.Input;
 import utils.InputInterruptException;
 import validations.*;
 
-import java.util.GregorianCalendar;
-
 public final class Generator {
-    public static Pessoa generate(String sexo, String nome, String sobreNome, String dia, String mes, String ano, String numCPF, String peso, String altura) throws ValidationException {
-        if (sexo.equals("m")) {
+    private static Pessoa generate(char genero, String nome, String sobreNome, int dia, int mes, int ano, long numCPF, float peso, float altura) {
+        if (genero == 'm') {
             return new Homem(nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
-        } else if (sexo.equals("f")) {
+        } else {
             return new Mulher(nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
-        } else {
-            throw new ValidationException("Sexo invalido");
         }
     }
 
-    public static Pessoa generate(String sexo, String nome, String sobreNome, String dia, String mes, String ano) throws ValidationException {
-        if (sexo.equals("m")) {
+    private static Pessoa generate(char genero, String nome, String sobreNome, int dia, int mes, int ano) {
+        if (genero == 'm') {
             return new Homem(nome, sobreNome, dia, mes, ano);
-        } else if (sexo.equals("f")) {
-            return new Mulher(nome, sobreNome, dia, mes, ano);
         } else {
-            throw new ValidationException("Sexo invalido");
+            return new Mulher(nome, sobreNome, dia, mes, ano);
         }
     }
 
-    public static Pessoa generate(String[] args) throws ValidationException {
-        if (args.length == 9) {
-            return generate(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8]);
-        } else if (args.length == 6) {
-            return generate(args[0], args[1], args[2], args[3], args[4], args[5]);
-        } else {
-            throw new ValidationException("Número de argumentos inválido");
-        }
+public static Pessoa generate(String[] args) throws ValidationException {
+    if (args.length != 9 && args.length != 6) {
+        throw new ValidationException("Informações faltando. Por favor, preencha todos os dados.");
     }
+
+    char genero = ValidaGenero.validaGenero(args[0]);
+    String nome = ValidaNome.validaNome(args[1]);
+    String sobreNome = ValidaSobrenome.validaSobrenome(args[2]);
+    int dia = ValidaData.validaDia(args[3]);
+    int mes = ValidaData.validaMes(args[4]);
+    int ano = ValidaData.validaAno(args[5]);
+    ValidaData.validaData(dia, mes, ano);
+
+    if (args.length == 9) {
+        long numCPF = ValidaCPF.validaCPF(args[6]);
+        float peso = ValidaPeso.validaPeso(args[7]);
+        float altura = ValidaAltura.validaAltura(args[8]);
+        return generate(genero, nome, sobreNome, dia, mes, ano, numCPF, peso, altura);
+    } else {
+        return generate(genero, nome, sobreNome, dia, mes, ano);
+    }
+}
 
     public static Pessoa generate() throws InputInterruptException {
-        System.out.println("Insira os dados da pessoa.");
         String nome = requestName();
         String sobreNome = requestSobreNome();
-        String[] dataNasc = requestDataNasc();
-        String numCPF = requestNumCPF();
-        String peso = requestPeso();
-        String altura = requestAltura();
-        String sexo = requestSexo();
-        try {
-            return generate(sexo, nome, sobreNome, dataNasc[0], dataNasc[1], dataNasc[2], numCPF, peso, altura);
-        } catch (ValidationException e) {
-            System.out.println(e.getMessage());
-            return generate();
+        int[] dataNasc = requestDataNasc();
+        long numCPF = requestNumCPF();
+        float peso = requestPeso();
+        float altura = requestAltura();
+        char genero = requestGenero();
+        if (genero == 'm') {
+            return new Homem(nome, sobreNome, dataNasc[0], dataNasc[1], dataNasc[2], numCPF, peso, altura);
+        } else {
+            return new Mulher(nome, sobreNome, dataNasc[0], dataNasc[1], dataNasc[2], numCPF, peso, altura);
         }
     }
 
-    public static int requestNumPessoas() {
+    public static int requestNumPessoas() throws InputInterruptException {
         try {
-            return ValidaNumPessoas.validaNumPessoas(Input.get("Quantas pessoas a mais deseja inserir?"));
+            return ValidaNumPessoas.validaNumPessoas(Input.get("Quantas pessoas a mais deseja inserir? "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestNumPessoas();
         }
     }
 
-    public static String requestSexo() {
+    public static char requestGenero() throws InputInterruptException {
         try {
-            return ValidaSexo.validaSexo(Input.get("Esta pessoa é do gênero feminino ou masculino (f ou m)?"));
+            return ValidaGenero.validaGenero(Input.get("Esta pessoa é do gênero feminino ou masculino (f ou m)? "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
-            return requestSexo();
+            return requestGenero();
         }
     }
 
-    public static String requestName() {
+    public static String requestName() throws InputInterruptException {
         try {
-            return ValidaNome.validaNome(Input.get("Insira o nome"));
+            return ValidaNome.validaNome(Input.get("Insira o nome: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestName();
         }
     }
 
-    public static String requestSobreNome() {
+    public static String requestSobreNome() throws InputInterruptException {
         try {
-            return ValidaSobrenome.validaSobrenome(Input.get("Insira o sobrenome"));
+            return ValidaSobrenome.validaSobrenome(Input.get("Insira o sobrenome: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestSobreNome();
         }
     }
 
-    public static String requestDia() {
+    public static int requestDia() throws InputInterruptException {
         try {
-            return String.valueOf(ValidaData.validaDia(Input.get("Dia de nascimento")));
+            return ValidaData.validaDia(Input.get("Dia de nascimento: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestDia();
         }
     }
 
-    public static String requestMes() {
+    public static int requestMes() throws InputInterruptException {
         try {
-            return String.valueOf(ValidaData.validaMes(Input.get("Mês de nascimento")));
+            return ValidaData.validaMes(Input.get("Mês de nascimento: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestMes();
         }
     }
 
-    public static String requestAno() {
+    public static int requestAno() throws InputInterruptException {
         try {
-            return String.valueOf(ValidaData.validaAno(Input.get("Ano de nascimento")));
+            return ValidaData.validaAno(Input.get("Ano de nascimento: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestAno();
         }
     }
 
-    public static String[] requestDataNasc() {
+    public static int[] requestDataNasc() throws InputInterruptException {
         try {
-            String dia = requestDia();
-            String mes = requestMes();
-            String ano = requestAno();
-            GregorianCalendar data = ValidaData.validaData(dia, mes, ano);
-            return new String[]{dia, mes, ano};
+            int dia = requestDia();
+            int mes = requestMes();
+            int ano = requestAno();
+            ValidaData.validaData(dia, mes, ano);
+            return new int[]{dia, mes, ano};
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestDataNasc();
         }
     }
 
-    public static String requestNumCPF() {
+    public static long requestNumCPF() throws InputInterruptException {
         try {
-            return String.format("%011d", ValidaCPF.validaCPF(Input.get("Insira o CPF")));
+            return ValidaCPF.validaCPF(Input.get("Insira o CPF: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestNumCPF();
         }
     }
 
-    public static String requestPeso() {
+    public static float requestPeso() throws InputInterruptException {
         try {
-            return String.valueOf(ValidaPeso.validaPeso(Input.get("Insira o peso")));
+            return ValidaPeso.validaPeso(Input.get("Insira o peso: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestPeso();
         }
     }
 
-    public static String requestAltura() {
+    public static float requestAltura() throws InputInterruptException {
         try {
-            return String.valueOf(ValidaAltura.validaAltura(Input.get("Insira a altura")));
+            return ValidaAltura.validaAltura(Input.get("Insira a altura: "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestAltura();
