@@ -4,104 +4,104 @@ public abstract class Generator {
     public static PessoaIMC[] generate() {
         return new PessoaIMC[]{
                 new Homem(
-                        "João",
-                        "Silva",
-                        1,
-                        1,
-                        1990,
-                        12345678901L,
-                        Float.parseFloat("70"),
-                        Float.parseFloat("1.92")
-                ),
-                new Mulher(
-                        "Maria",
-                        "Santos",
-                        2,
-                        2,
-                        1991,
-                        10987654321L,
-                        Float.parseFloat("80"),
-                        Float.parseFloat("1.65")
+                        "Lucas",
+                        "Almeida",
+                        10,
+                        5,
+                        1985,
+                        12345678902L,
+                        Float.parseFloat("55"),
+                        Float.parseFloat("1.80")
                 ),
                 new Homem(
-                        "José",
-                        "Oliveira",
-                        3,
-                        3,
-                        1992,
-                        12345678901L,
-                        Float.parseFloat("80"),
+                        "Rafael",
+                        "Pereira",
+                        12,
+                        6,
+                        1988,
+                        34567890124L,
+                        Float.parseFloat("70"),
                         Float.parseFloat("1.75")
                 ),
-                new Mulher(
-                        "Ana",
-                        "Silveira",
-                        4,
-                        4,
-                        1993,
-                        10987654321L,
-                        Float.parseFloat("40"),
-                        Float.parseFloat("1.60")
+                new Homem(
+                        "Felipe",
+                        "Martins",
+                        18,
+                        8,
+                        1995,
+                        56789012346L,
+                        Float.parseFloat("85"),
+                        Float.parseFloat("1.80")
                 ),
                 new Homem(
-                        "Carlos",
-                        "Santana",
-                        5,
-                        5,
-                        1994,
-                        12345678901L,
-                        Float.parseFloat("90"),
+                        "Leonardo",
+                        "Rodrigues",
+                        15,
+                        1,
+                        1989,
+                        78901234568L,
+                        Float.parseFloat("60"),
+                        Float.parseFloat("1.85")
+                ),
+                new Homem(
+                        "Bruno",
+                        "Carvalho",
+                        27,
+                        7,
+                        1993,
+                        90123456780L,
+                        Float.parseFloat("80"),
                         Float.parseFloat("1.80")
                 ),
                 new Mulher(
-                        "Beatriz",
-                        "Oliveira",
-                        6,
-                        6,
-                        1995,
-                        10987654321L,
-                        Float.parseFloat("70"),
-                        Float.parseFloat("1.70")
-                ),
-                new Homem(
-                        "Pedro",
-                        "Silva",
-                        7,
-                        7,
-                        1996,
-                        12345678901L,
-                        Float.parseFloat("100"),
-                        Float.parseFloat("1.85")
-                ),
-                new Mulher(
-                        "Carla",
-                        "Santos",
-                        8,
-                        8,
-                        1997,
-                        10987654321L,
-                        Float.parseFloat("55"),
-                        Float.parseFloat("1.62")
-                ),
-                new Homem(
-                        "Paulo",
-                        "Oliveira",
-                        9,
-                        9,
-                        1998,
-                        12345678901L,
-                        Float.parseFloat("75"),
-                        Float.parseFloat("1.70")
-                ),
-                new Mulher(
-                        "Mariana",
-                        "Silveira",
-                        10,
-                        10,
-                        1999,
-                        10987654321L,
-                        Float.parseFloat("65"),
+                        "Fernanda",
+                        "Costa",
+                        23,
+                        3,
+                        1990,
+                        23456789013L,
+                        Float.parseFloat("45"),
                         Float.parseFloat("1.65")
+                ),
+                new Mulher(
+                        "Isabela",
+                        "Moreira",
+                        7,
+                        9,
+                        1992,
+                        45678901235L,
+                        Float.parseFloat("55"),
+                        Float.parseFloat("1.68")
+                ),
+                new Mulher(
+                        "Gabriela",
+                        "Ferreira",
+                        4,
+                        12,
+                        1997,
+                        67890123457L,
+                        Float.parseFloat("80"),
+                        Float.parseFloat("1.65")
+                ),
+                new Mulher(
+                        "Juliana",
+                        "Silva",
+                        3,
+                        2,
+                        1994,
+                        89012345679L,
+                        Float.parseFloat("48"),
+                        Float.parseFloat("1.60")
+                ),
+                new Mulher(
+                        "Patrícia",
+                        "Azevedo",
+                        14,
+                        11,
+                        1996,
+                        10234567891L,
+                        Float.parseFloat("60"),
+                        Float.parseFloat("1.70")
                 ),
         };
     }
