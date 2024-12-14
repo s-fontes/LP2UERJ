@@ -1,8 +1,8 @@
-package pessoa;
+package P1n.pessoa;
 
-import utils.Input;
-import utils.InputInterruptException;
-import validations.*;
+import P1n.utils.Input;
+import P1n.utils.InputInterruptException;
+import P1n.validations.*;
 
 public final class Generator {
     private static Pessoa generate(char genero, String nome, String sobreNome, int dia, int mes, int ano, long numCPF, float peso, float altura) {
@@ -70,7 +70,7 @@ public final class Generator {
 
     public static char requestGenero() throws InputInterruptException {
         try {
-            return ValidaGenero.validaGenero(Input.get("Esta pessoa é do gênero feminino ou masculino (f ou m)? "));
+            return ValidaGenero.validaGenero(Input.get("Esta P1nP.pessoa é do gênero feminino ou masculino (f ou m)? "));
         } catch (ValidationException e) {
             System.out.println(e.getMessage());
             return requestGenero();

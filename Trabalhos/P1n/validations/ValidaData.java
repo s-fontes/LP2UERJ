@@ -1,6 +1,6 @@
-package validations;
+package P1n.validations;
 
-import utils.MonthEnum;
+import P1n.utils.MonthEnum;
 
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -52,8 +52,12 @@ public final class ValidaData {
 
     public static void validaData(int dia, int mes, int ano) throws ValidationException {
         GregorianCalendar data = new GregorianCalendar(ano, mes, dia);
+        GregorianCalendar hoje = new GregorianCalendar();
+        hoje.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
         if (data.get(GregorianCalendar.MONTH) != mes) {
             throw new ValidationException("Data inválida. Insira uma data existente.");
+        } else if (data.after(hoje)) {
+            throw new ValidationException("Data inválida. Insira uma data entre 01/01/" + (ano - 120) + " e " + "hoje.");
         }
     }
 }

@@ -1,4 +1,4 @@
-package validations;
+package P1n.validations;
 
 import java.util.Arrays;
 import java.util.HashSet;

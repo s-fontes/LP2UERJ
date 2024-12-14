@@ -1,9 +1,11 @@
-import pessoa.Generator;
-import pessoa.Homem;
-import pessoa.Mulher;
-import pessoa.Pessoa;
-import utils.InputInterruptException;
-import validations.ValidationException;
+package P1n;
+
+import P1n.pessoa.Generator;
+import P1n.pessoa.Homem;
+import P1n.pessoa.Mulher;
+import P1n.pessoa.Pessoa;
+import P1n.utils.InputInterruptException;
+import P1n.validations.ValidationException;
 
 public class P1nX {
     private static int numHomens = 0;
