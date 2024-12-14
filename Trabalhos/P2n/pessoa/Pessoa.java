@@ -1,7 +1,6 @@
-package pessoa;
+package P2n.pessoa;
 
-import validations.ValidaNome;
-import validations.ValidaSobrenome;
+import P2n.format.Formatter;
 
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -12,8 +11,6 @@ public abstract class Pessoa {
     private String sobreNome;
     private GregorianCalendar dataNasc;
     private long numCPF;
-    private float peso;
-    private float altura;
 
     protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano) {
         this.setNome(nome);
@@ -22,13 +19,11 @@ public abstract class Pessoa {
         numPessoas++;
     }
 
-    protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano, long numCPF, float peso, float altura) {
+    protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano, long numCPF) {
         this.setNome(nome);
         this.setSobreNome(sobreNome);
         this.setDataNasc(dia, mes, ano);
         this.setNumCPF(numCPF);
-        this.setPeso(peso);
-        this.setAltura(altura);
         numPessoas++;
     }
 
@@ -36,7 +31,7 @@ public abstract class Pessoa {
         return numPessoas;
     }
 
-    protected String getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -44,7 +39,7 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    protected String getSobreNome() {
+    public String getSobreNome() {
         return sobreNome;
     }
 
@@ -52,7 +47,7 @@ public abstract class Pessoa {
         this.sobreNome = sobreNome;
     }
 
-    protected GregorianCalendar getDataNasc() {
+    public GregorianCalendar getDataNasc() {
         return dataNasc;
     }
 
@@ -62,7 +57,7 @@ public abstract class Pessoa {
         this.dataNasc = dataNasc;
     }
 
-    protected int getIdade() {
+    public int getIdade() {
         GregorianCalendar hoje = new GregorianCalendar();
         hoje.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
         GregorianCalendar dataNasc = getDataNasc();
@@ -75,7 +70,7 @@ public abstract class Pessoa {
         return idade;
     }
 
-    protected long getNumCPF() {
+    public long getNumCPF() {
         return numCPF;
     }
 
@@ -83,26 +78,19 @@ public abstract class Pessoa {
         this.numCPF = numCPF;
     }
 
-    protected float getPeso() {
-        return peso;
-    }
-
-    protected void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    protected float getAltura() {
-        return altura;
-    }
-
-    protected void setAltura(float altura) {
-        this.altura = altura;
-    }
+    private String getGenero() {
+        if (this instanceof Homem) {
+            return "homem";
+        } else if (this instanceof Mulher) {
+            return "mulher";
+        }
+        throw new IllegalArgumentException("Gênero não identificado");
+    };
 
     @Override
     public String toString() {
-        return "Nome: " + ValidaNome.imprimeNome(getNome()) + "\n" +
-                "Sobrenome: " + ValidaSobrenome.imprimeSobrenome(getSobreNome()) + "\n" +
-                "Idade: " + getIdade() + "\n";
+        return "Nome: " + Formatter.formatNome(getNome()) + " " + Formatter.formatSobreNome(getSobreNome()) + " (" + this.getGenero() + ")" + "\n" +
+                "Data de Nascimento: " + Formatter.formatData(getDataNasc()) + "\n" +
+                "CPF: " + Formatter.formatCPF(getNumCPF()) + "\n";
     }
 }
