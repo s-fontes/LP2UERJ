@@ -1,0 +1,15 @@
+{
+    "name": "Java 15 Dev Container",
+    "image": "mcr.microsoft.com/vscode/devcontainers/java:0-15",
+
+    "features": {
+      "ghcr.io/devcontainers/features/java" : {
+        "version": "none",
+        "installMaven": false,
+        "installGradle": false
+      }
+    },
+    "containerEnv": {
+        "JAVA_HOME": "/usr/local/openjdk-15"
+    }
+}

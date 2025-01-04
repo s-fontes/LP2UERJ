@@ -1,6 +1,6 @@
-package P2n.pessoa;
+package lp2g47.biblioteca.usuario;
 
-import P2n.format.Formatter;
+import lp2g47.biblioteca.utils.Formatter;
 
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -11,13 +11,6 @@ public abstract class Pessoa {
     private String sobreNome;
     private GregorianCalendar dataNasc;
     private long numCPF;
-
-    protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano) {
-        this.setNome(nome);
-        this.setSobreNome(sobreNome);
-        this.setDataNasc(dia, mes, ano);
-        numPessoas++;
-    }
 
     protected Pessoa(String nome, String sobreNome, int dia, int mes, int ano, long numCPF) {
         this.setNome(nome);
@@ -78,19 +71,12 @@ public abstract class Pessoa {
         this.numCPF = numCPF;
     }
 
-    private String getGenero() {
-        if (this instanceof Homem) {
-            return "homem";
-        } else if (this instanceof Mulher) {
-            return "mulher";
-        }
-        throw new IllegalArgumentException("Gênero não identificado");
-    };
-
     @Override
     public String toString() {
-        return "Nome: " + Formatter.formatNome(getNome()) + " " + Formatter.formatSobrenome(getSobreNome()) + " (" + this.getGenero() + ")" + "\n" +
+        return "Nome: " + Formatter.formatNome(getNome()) + "\n" +
+                "Sobrenome: " + Formatter.formatSobrenome(getSobreNome()) + "\n" +
                 "Data de Nascimento: " + Formatter.formatData(getDataNasc()) + "\n" +
+                "Idade: " + Formatter.formatIdade(getIdade()) + "\n" +
                 "CPF: " + Formatter.formatCPF(getNumCPF()) + "\n";
     }
 }
